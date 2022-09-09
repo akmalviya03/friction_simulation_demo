@@ -93,10 +93,11 @@ class _FrictionSimulationDemoState extends State<FrictionSimulationDemo>
               ),
               ElevatedButton(
                   onPressed: () {
-                    _controller.animateWith(FrictionSimulation(
-                      0.4,
+                    _controller.animateWith(FrictionSimulation.through(
                       0,
                       1,
+                      1,
+                      0.1,
                     ));
                   },
                   child: const Text('Play Friction Simulation')),

@@ -77,23 +77,16 @@ class _GravitySimulationDemoState extends State<GravitySimulationDemo>
         isExtended: true,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         onPressed: () {
-          _controller.animateWith(FrictionSimulation(
-              //DragCoefficient Friction between surface and object,
-              // Keep it below 0.5. 0 means high friction.
-              //1 means no friction or slippery surface
-              0.8,
-              //Starting position in pixels
-              0,
-              //Velocity with which we have pushed this object.
-              300,
-              //Object Deceleration Speed
-              //This is useful if object has it's own speed
-              constantDeceleration: 100,
-              //It used to define, when simulation is completed.
-              //It is used to compare current and second last value generated, if the difference is
-              //Less than or equal to the tolerance.
-              //Then simulation is considered as done or completed.
-              tolerance: Tolerance.defaultTolerance));
+          // Magnitude of start velocity must be greater than end velocity.
+          // Else Internally dragCoefficient value will be calculated as 1.
+          // If the start and ending positions are same then, drgCoefficient will become infinity.
+          // Sign of the start and end velocities must be same.
+          _controller.animateWith(FrictionSimulation.through(
+            0,
+            width-20,
+            100,
+            55
+          ));
         },
         label: const Text('Play Simulation'),
       ),

@@ -77,16 +77,14 @@ class _GravitySimulationDemoState extends State<GravitySimulationDemo>
         isExtended: true,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         onPressed: () {
-          // Magnitude of start velocity must be greater than end velocity.
-          // Else Internally dragCoefficient value will be calculated as 1.
-          // If the start and ending positions are same then, drgCoefficient will become infinity.
-          // Sign of the start and end velocities must be same.
-          _controller.animateWith(FrictionSimulation.through(
-            0,
-            width-20,
-            100,
-            55
-          ));
+          //Here we need to pass minimum and the maximum value for the position.
+          //Here, we are going to pass minimum value 0 and maximum value width-20
+          //If we pass initial position same as min or max value then simulation won't work.
+          //This should always be greater than min and lesser than max position.
+          //For this demo we are going to keep velocity 100 and drag Coefficient 0.9.
+          _controller.animateWith(
+            BoundedFrictionSimulation(0.9,0.01,100,0,width-20)
+          );
         },
         label: const Text('Play Simulation'),
       ),
